@@ -1,0 +1,119 @@
+fix secondary saving!!
+
+TODO 19-4-2024
+!) - add other modes
+!) - add folders for the other people settings
+!) - find screen recording program, download and know how to use
+- hierarchies - change access with higher access == remove people from devices ect
+- data
+    - settings! (add more and do some differentials)
+!) - dashboard
+!)    - temperature
+!)    - rearrange to be nicer on page
+- notifications
+    - fix dates
+    - clear notification button (and also read deletes things)
+    - make choices of settings work here
+- devices
+    - fix watts?
+    - fix notifications
+- activity
+    - private log folders
+    - filter log by device
+- settings
+    - you haven't saved! on leaving
+    - confirmation of successful save
+    - nudges
+    - make choices affect notifications
+    - MINOR
+        - device settings change logo
+        - change colour of bolded words
+- sign-in
+    - LOOK AT COOKIES!
+
+
+
+
+
+
+- TODAY TODO 18-4-24
+    - find screen recording program, download and know how to use
+    - data
+        - change device names 
+        - make logs for devices
+        - make notifications for devices
+        - add device specific settings where sensicle
+    - dashboard
+        - necessary
+            - datas :)
+        - nice
+            - temperature
+            - rearrange to fit nicer on page
+    - notifications
+        - necessary
+            - datas :)
+            - make dates work properly
+            - setting notifications look proper
+            - change the read so it actually displays
+        - nice
+            - make tick read change the file
+            - make tick actually make sense??
+    - devices
+        - necessary
+            - not just active devices?
+        - nice
+            - make him look prettier
+            - fix notifications
+    - activity
+        - nice 
+            - private log folders :)
+    - settings
+        - necessary
+            - show device name not just 'name'
+            - rearrange to look nice
+        - nice
+            - you haven't saved! on leaving the settings
+            - you sure you want to change? on setting effecting others 
+            - look prettier?
+    - sign in 
+        - nice 
+            - who is signed in?  what mode?
+
+
+
+- current todo
+    - reconfigure notifications full stop -done
+        - notification page - fix prettiness
+        - fix time for month/day showing
+    - display who is logged in and what mode
+    - SETTINGS
+    - Devices page - fixed
+        - make sensible device data
+    - Log (activity) page - done
+    - Make sensible datas - mostly done
+    - replace fucks with errors
+
+
+- minor bits/would be nice
+    - fix out time across project = make it sortable
+    - actual data pls
+    - fix weird gap at top of every page???
+    - general pretify
+    - dashboard 
+    - fix filter log data type
+
+
+
+ahhh
+- dashboard make pretty
+    - make notification in dashboard pretty
+    - make active devices in dashboard pretty
+    - make log in dashboard pretty
+
+- dashboard data structures/do ugly
+    - temperature
+
+- basic page structure
+    - activity
+    - devices
+    - settings

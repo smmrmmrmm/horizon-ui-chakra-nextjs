@@ -1,0 +1,11 @@
+0:
+{"Notifications":true,"Logs":true,"Record clip on motion":true,"Record clip on ring":true}
+1:
+{"Notifications":true,"Log":true,"Allow pin reset from lock":true,"Alice unlock and lock access":true,"Bob unlock and lock access":true,"Charlotte unlock and lock access":true,"David unlock and lock access":true,"Elphaba unlock and lock access":true}
+2:
+{"Notifications":true,"Log":true,"Allow pin reset from lock":true,"Alice unlock and lock access":true,"Bob unlock and lock access":true,"Charlotte unlock and lock access":true,"David unlock and lock access":true,"Elphaba unlock and lock access":true}
+3:
+{"Notifications":false,"Log":true,"Mono-audio":true}
+4:
+{"Notifications":false,"Log":true,"Alert on noise":true}
+5:

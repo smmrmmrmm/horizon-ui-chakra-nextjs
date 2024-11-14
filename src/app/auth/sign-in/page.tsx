@@ -28,6 +28,7 @@ import {
   Box,
   Button,
   Checkbox,
+  SimpleGrid,
   Flex,
   FormControl,
   FormLabel,
@@ -39,17 +40,73 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+
+import UserMenu from 'components/menu/UserMenu';
+import {User} from 'usersanddevices/userobject'
+import userList from 'usersanddevices/userobject';
+
+import ModeMenu from 'components/menu/ModeMenu'
+import { Hierarchy } from 'hierarchies/hierarchies';
+import hierarchyList from 'hierarchies/hierarchies';
+
+import { deleteUserCookie, deleteModeCookie, getVisibles, getUserandMode, createUser, createMode } from 'app/actions';
+import { useState, useEffect } from 'react'
+
+
 // Custom components
 import { HSeparator } from 'components/separator/Separator';
 import DefaultAuthLayout from 'layouts/auth/Default';
+import { validateHeaderName } from 'http';
+import { cookies } from 'next/headers';
 // Assets
-import Link from 'next/link';
-import { FcGoogle } from 'react-icons/fc';
-import { MdOutlineRemoveRedEye } from 'react-icons/md';
-import { RiEyeCloseLine } from 'react-icons/ri';
+// import Link from 'next/link';
+// import { FcGoogle } from 'react-icons/fc';
+// import { MdOutlineRemoveRedEye } from 'react-icons/md';
+// import { RiEyeCloseLine } from 'react-icons/ri';
+// import { cookies } from 'next/headers';
+
+type cookies = {
+  username:string;
+  modename:string
+}
+function showuser(cookievalues : string){
+  if (cookievalues === null){
+    return(<Text></Text>);
+  }
+  else{
+  return(
+    <Text>
+      Current User: {cookievalues}
+    </Text>
+  )
+}
+}
+function showmode(cookievalues : string){
+  if (cookievalues === null){
+    return(<Text></Text>);
+  }
+  else{
+  return(
+    <Text>
+      Current Mode: {cookievalues}
+    </Text>
+  )
+}
+}
+
 
 export default function SignIn() {
   // Chakra color mode
+  const [cookieuser, setuser] = useState(null);
+  const [cookiemode, setmode] = useState(null)
+
+  useEffect(() => {
+    getUserandMode().then(value=> {
+      setuser(value.username);
+      setmode(value.modename)
+      })
+    },[]);
+
   const textColor = useColorModeValue('navy.700', 'white');
   const textColorSecondary = 'gray.400';
   const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
@@ -65,10 +122,48 @@ export default function SignIn() {
     { bg: 'secondaryGray.300' },
     { bg: 'whiteAlpha.200' },
   );
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
   return (
-    <DefaultAuthLayout illustrationBackground={'/img/auth/auth.png'}>
+    //<DefaultAuthLayout illustrationBackground={'/img/auth/auth.png'}>
+    <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
+        <SimpleGrid        
+          columns={{ base: 1, md: 2, lg: 2, '2xl': 6 }}
+          gap="20px"
+          mb="20px">
+        <Flex
+        maxW={{ base: '100%', md: 'max-content' }}
+        w="100%"
+        mx={{ base: 'auto', lg: '0px' }}
+        me="auto"
+        h="100%"
+        alignItems="start"
+        justifyContent="top"
+        mb={{ base: '30px', md: '60px' }}
+        px={{ base: '25px', md: '0px' }}
+        mt={{ base: '40px', md: '14vh' }}
+        flexDirection="column"
+        gap="50px"
+      > 
+
+      <Heading >
+        User Sign In
+      </Heading>
+
+      { showuser(cookieuser) }
+
+
+      {userList.map((user)=>{
+        return(<Button key={user.id}
+          onClick={() => {setuser(createUser(user))}}>
+            { user.name }
+          </Button>)
+      })}
+      
+      <Button 
+      onClick={()=>setuser(deleteUserCookie())}>
+        Sign out
+      </Button>
+      </Flex> 
+
       <Flex
         maxW={{ base: '100%', md: 'max-content' }}
         w="100%"
@@ -76,173 +171,37 @@ export default function SignIn() {
         me="auto"
         h="100%"
         alignItems="start"
-        justifyContent="center"
+        justifyContent="top"
         mb={{ base: '30px', md: '60px' }}
         px={{ base: '25px', md: '0px' }}
         mt={{ base: '40px', md: '14vh' }}
         flexDirection="column"
+        gap="50px"
       >
-        <Box me="auto">
-          <Heading color={textColor} fontSize="36px" mb="10px">
-            Sign In
-          </Heading>
-          <Text
-            mb="36px"
-            ms="4px"
-            color={textColorSecondary}
-            fontWeight="400"
-            fontSize="md"
-          >
-            Enter your email and password to sign in!
-          </Text>
-        </Box>
-        <Flex
-          zIndex="2"
-          direction="column"
-          w={{ base: '100%', md: '420px' }}
-          maxW="100%"
-          background="transparent"
-          borderRadius="15px"
-          mx={{ base: 'auto', lg: 'unset' }}
-          me="auto"
-          mb={{ base: '20px', md: 'auto' }}
-        >
-          <Button
-            fontSize="sm"
-            me="0px"
-            mb="26px"
-            py="15px"
-            h="50px"
-            borderRadius="16px"
-            bgColor={googleBg}
-            color={googleText}
-            fontWeight="500"
-            _hover={googleHover}
-            _active={googleActive}
-            _focus={googleActive}
-          >
-            <Icon as={FcGoogle} w="20px" h="20px" me="10px" />
-            Sign in with Google
-          </Button>
-          <Flex align="center" mb="25px">
-            <HSeparator />
-            <Text color="gray.400" mx="14px">
-              or
-            </Text>
-            <HSeparator />
-          </Flex>
-          <FormControl>
-            <FormLabel
-              display="flex"
-              ms="4px"
-              fontSize="sm"
-              fontWeight="500"
-              color={textColor}
-              mb="8px"
-            >
-              Email<Text color={brandStars}>*</Text>
-            </FormLabel>
-            <Input
-              isRequired={true}
-              variant="auth"
-              fontSize="sm"
-              ms={{ base: '0px', md: '0px' }}
-              type="email"
-              placeholder="mail@simmmple.com"
-              mb="24px"
-              fontWeight="500"
-              size="lg"
-            />
-            <FormLabel
-              ms="4px"
-              fontSize="sm"
-              fontWeight="500"
-              color={textColor}
-              display="flex"
-            >
-              Password<Text color={brandStars}>*</Text>
-            </FormLabel>
-            <InputGroup size="md">
-              <Input
-                isRequired={true}
-                fontSize="sm"
-                placeholder="Min. 8 characters"
-                mb="24px"
-                size="lg"
-                type={show ? 'text' : 'password'}
-                variant="auth"
-              />
-              <InputRightElement display="flex" alignItems="center" mt="4px">
-                <Icon
-                  color={textColorSecondary}
-                  _hover={{ cursor: 'pointer' }}
-                  as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
-                  onClick={handleClick}
-                />
-              </InputRightElement>
-            </InputGroup>
-            <Flex justifyContent="space-between" align="center" mb="24px">
-              <FormControl display="flex" alignItems="center">
-                <Checkbox
-                  id="remember-login"
-                  colorScheme="brandScheme"
-                  me="10px"
-                />
-                <FormLabel
-                  htmlFor="remember-login"
-                  mb="0"
-                  fontWeight="normal"
-                  color={textColor}
-                  fontSize="sm"
-                >
-                  Keep me logged in
-                </FormLabel>
-              </FormControl>
-              <Link href="/auth/forgot-password">
-                <Text
-                  color={textColorBrand}
-                  fontSize="sm"
-                  w="124px"
-                  fontWeight="500"
-                >
-                  Forgot password?
-                </Text>
-              </Link>
-            </Flex>
-            <Button
-              fontSize="sm"
-              variant="brand"
-              fontWeight="500"
-              w="100%"
-              h="50"
-              mb="24px"
-            >
-              Sign In
-            </Button>
-          </FormControl>
-          <Flex
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="start"
-            maxW="100%"
-            mt="0px"
-          >
-            <Link href="/auth/sign-up">
-              <Text color={textColorDetails} fontWeight="400" fontSize="14px">
-                Not registered yet?
-                <Text
-                  color={textColorBrand}
-                  as="span"
-                  ms="5px"
-                  fontWeight="500"
-                >
-                  Create an Account
-                </Text>
-              </Text>
-            </Link>
-          </Flex>
-        </Flex>
+        <Heading >
+          Mode Selection
+        </Heading> 
+
+        { showmode(cookiemode) }
+
+      {hierarchyList.map((mode)=>	{ 
+        return(
+			<Button key={mode.id}
+			onClick={() => {setmode(createMode(mode))}}>
+				{ mode.mode }
+			</Button>)})}
+
+      <Button
+      onClick={()=>{setmode(deleteModeCookie())}}>
+        Remove Mode Selection
+      </Button>
+
+      
+
       </Flex>
-    </DefaultAuthLayout>
+
+      </SimpleGrid>
+      </Box>
+    //</DefaultAuthLayout>
   );
 }

@@ -25,8 +25,8 @@ class PieChart extends React.Component<ChartProps, ChartState> {
     if (!isWindowAvailable()) return <></>
     return (
       <Chart
-        options={this.state.chartOptions}
-        series={this.state.chartData}
+        options={this.props.chartOptions}
+        series={this.props.chartData}
         type='pie'
         width='100%'
         height='55%'
